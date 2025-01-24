@@ -1,0 +1,10 @@
+[Unit]
+Description=Watches for changes in the theme directory and reloads the border colors
+After=graphical.target
+
+[Service]
+ExecStart=/usr/bin/theme-watcher
+Restart=always
+
+[Install]
+WantedBy=graphical.target
