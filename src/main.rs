@@ -24,6 +24,7 @@ fn main() {
                     if line != last_theme {
                         last_theme = line.clone();
                         update_border_color(&line);
+                        update_search_light(&line);
                     }
                 }
             }
@@ -58,5 +59,63 @@ fn update_border_color(theme: &str) {
         }
         Ok(_) => eprintln!("Failed to update border color for theme {}", theme),
         Err(_) => eprintln!("Failed to update border color for theme {}", theme),
+    }
+}
+
+fn update_search_light(theme: &str) {
+    let white = "(1.0, 1.0, 1.0, 1.0)";
+    let black = "(0.0, 0.0, 0.0, 1.0)";
+
+    let white_opacity = "(1.0, 1.0, 1.0, 0.76333332061767578)";
+    let black_opacity = "(0.0, 0.0, 0.0, 0.76333332061767578)";
+
+    if theme.contains("dark") {
+        // text
+        let _text = Command::new("dconf")
+            .arg("write")
+            .arg("/org/gnome/shell/extensions/search-light/text-color")
+            .arg(white)
+            .spawn()
+            .expect("Failed to set search-light text color");
+
+        // background
+        let _background = Command::new("dconf")
+            .arg("write")
+            .arg("/org/gnome/shell/extensions/search-light/background-color")
+            .arg(black_opacity)
+            .spawn()
+            .expect("Failed to set search-light background color");
+
+        // border
+        let _border = Command::new("dconf")
+            .arg("write")
+            .arg("/org/gnome/shell/extensions/search-light/border-color")
+            .arg(white)
+            .spawn()
+            .expect("Failed to set search-light border color");
+    } else {
+        // text
+        let _text = Command::new("dconf")
+            .arg("write")
+            .arg("/org/gnome/shell/extensions/search-light/text-color")
+            .arg(black)
+            .spawn()
+            .expect("Failed to set search-light text color");
+
+        // background
+        let _background = Command::new("dconf")
+            .arg("write")
+            .arg("/org/gnome/shell/extensions/search-light/background-color")
+            .arg(white_opacity)
+            .spawn()
+            .expect("Failed to set search-light background color");
+
+        // border
+        let _background = Command::new("dconf")
+            .arg("write")
+            .arg("/org/gnome/shell/extensions/search-light/border-color")
+            .arg(black)
+            .spawn()
+            .expect("Failed to set search-light border color");
     }
 }

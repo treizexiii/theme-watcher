@@ -8,6 +8,7 @@ install:
 	systemctl --user daemon-reload
 	systemctl --user enable theme-watcher.service
 	systemctl --user start theme-watcher.service
+	systemctl --user status theme-watcher.service
 
 uninstall:
 	systemctl --user stop theme-watcher.service
