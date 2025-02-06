@@ -36,7 +36,7 @@ fn main() {
 }
 
 fn update_border_color(theme: &str) {
-    println!("Update Theme: {}", theme);
+    println!("Update border theme: {}", theme);
     let color = if theme.contains("dark") {
         "(1.0, 1.0, 1.0, 1.0)" // White for dark theme
     } else {
@@ -70,6 +70,7 @@ fn update_search_light(theme: &str) {
     let black_opacity = "(0.0, 0.0, 0.0, 0.76333332061767578)";
 
     if theme.contains("dark") {
+        print!("Switching search light to dark theme");
         // text
         let _text = Command::new("dconf")
             .arg("write")
@@ -94,6 +95,7 @@ fn update_search_light(theme: &str) {
             .spawn()
             .expect("Failed to set search-light border color");
     } else {
+        print!("Switching search light to light theme");
         // text
         let _text = Command::new("dconf")
             .arg("write")
